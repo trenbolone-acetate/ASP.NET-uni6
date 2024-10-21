@@ -1,0 +1,48 @@
+﻿@model List<Product>
+
+@{
+ViewData["Title"] = "Order Specifications";
+}
+<style>
+    .form-section {
+        border: 2px solid #ddd;
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+    .form-section h4 {
+        color: #333;
+    }
+    .form-section label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-section input {
+        display: block;
+        margin-bottom: 10px;
+        padding: 5px;
+        width: 100%;
+    }
+</style>
+
+<h1>Order Specifications</h1>
+
+<form asp-action="DisplayOrders" asp-controller="Home" method="post">
+    @for (var i = 0; i < Model.Count; i++)
+    {
+    <div class="form-section">
+        <h4>Product @((i + 1).ToString())</h4>
+
+        <input type="hidden" asp-for="@Model[i].Id" name="[@i].Id" />
+
+        <label asp-for="@Model[i].Name"></label>
+        <input asp-for="@Model[i].Name" name="[@i].Name" />
+
+        @{
+            Random rnd = new Random();
+            Model[i].Price = 2.49 + rnd.NextDouble() * (12.99 - 2.49);
+        }
+
+    </div>
+    }
+    <input type="submit" value="Confirm Order" />
+</form>

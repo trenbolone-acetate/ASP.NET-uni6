@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Order>  
+@{
+    ViewData["Title"] = "Display Orders";
+}
+@if (ViewBag.ConfirmationMessage != null)
+{
+    <script>
+        alert("@ViewBag.ConfirmationMessage");
+    </script>
+}
+<div class="container mt-4">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+
+
+
+    @foreach (var order in Model)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>Order @order.Id</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product Name</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @for (var i = 0; i < order.Products.Count; i++)
+                    {
+                        <tr>
+                            <td>@(i + 1)</td>
+                            <td>@order.Products[i].Name</td>
+                            <td>@order.Products[i].Price.ToString("C")</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
